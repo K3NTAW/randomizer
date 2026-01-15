@@ -61,8 +61,8 @@ export function ListRandomizer() {
     );
   };
 
-  const pickRandomItem = () => {
-    if (items.length === 0) return;
+  const pickRandomItem = (): string => {
+    if (items.length === 0) return "";
     const randomIndex = Math.floor(Math.random() * items.length);
     return items[randomIndex].text;
   };
@@ -105,9 +105,13 @@ export function ListRandomizer() {
     let results: string[] = [];
 
     switch (listMode) {
-      case "picker":
-        results = [pickRandomItem()];
+      case "picker": {
+        const picked = pickRandomItem();
+        if (picked) {
+          results = [picked];
+        }
         break;
+      }
       case "multiple":
         if (selectedCount > items.length) {
           alert(`Cannot select ${selectedCount} items from a list of ${items.length} items`);
